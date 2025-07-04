@@ -1,5 +1,5 @@
-from transcription.voice_to_wav import record_audio
-from transcription.speech_to_text import transcribe_audio
+from voice_transcription.voice_to_wav import record_audio
+from voice_transcription.speech_to_text import transcribe_audio
 
 def main():
     print("Press Enter to start recording...")
