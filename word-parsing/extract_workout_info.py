@@ -23,11 +23,12 @@ matcher = Matcher(nlp.vocab)
 
 # Patterns
 # TODO: Ignore punctuation and handle the edge case of one set and one rep i.e. don't end in sets or reps
-pattern_sets = [{"LIKE_NUM": True}, {"LOWER": {"IN": ["sets", "set"]}}]
-pattern_reps = [{"LIKE_NUM": True}, {"LOWER": {"IN": ["reps", "rep"]}}]
+pattern_sets = [{"LIKE_NUM": True}, {"IS_PUNCT": True, "OP": "?"}, {"LOWER": {"IN": ["sets", "set"]}}]
+pattern_reps = [{"LIKE_NUM": True}, {"IS_PUNCT": True, "OP": "?"}, {"LOWER": {"IN": ["reps", "rep"]}}]
 pattern_weight = [
     {"LIKE_NUM": True},
-    {"LOWER": {"IN": ["lbs", "kg", "lbs.", "kg.", "kgs", "pounds", "kilograms"]}}
+    {"IS_PUNCT": True, "OP": "?"},
+    {"LOWER": {"IN": ["lbs", "kg", "kgs", "pounds", "kilograms"]}}
 ]
 
 matcher.add("SETS_PATTERN", [pattern_sets])
@@ -48,49 +49,52 @@ exercise_matcher = PhraseMatcher(nlp.vocab, attr="LOWER")
 exercise_patterns = [nlp(text) for text in exercise_variations]
 exercise_matcher.add("EXERCISE", exercise_patterns)
 
-# Run matchers
-matches = matcher(doc)
-exercise_matches = exercise_matcher(doc)
-
 sets_list = []
 reps_list = []
 weight_list = []
+exercise_list = []
 
-# Print detected sets/reps/weights
-for match_id, start, end in matches:
-    span = doc[start:end]
-    label = nlp.vocab.strings[match_id]
+def extract_workout_info():
+    # Run matchers
+    matches = matcher(doc)
+    exercise_matches = exercise_matcher(doc)
+    # Print detected sets/reps/weights
+    for match_id, start, end in matches:
+        span = doc[start:end]
+        label = nlp.vocab.strings[match_id]
 
-    raw_val = span[0].text
-    try:
-        value = int(raw_val)
-    except ValueError:
-        value = w2n.word_to_num(raw_val)
+        raw_val = span[0].text
+        try:
+            value = int(raw_val)
+        except ValueError:
+            value = w2n.word_to_num(raw_val)
 
-    if label == "SETS_PATTERN":
-        sets_list.append(value)
-    elif label == "REPS_PATTERN":
-        reps_list.append(value)
-    elif label == "WEIGHT_PATTERN":
-        weight_list.append(value)
+        if label == "SETS_PATTERN":
+            sets_list.append(value)
+        elif label == "REPS_PATTERN":
+            reps_list.append(value)
+        elif label == "WEIGHT_PATTERN":
+            weight_list.append(value)
 
-print(sets_list)
-print(reps_list)
-print(weight_list)
+    found_exercises = set()
+    for match_id, start, end in exercise_matches:
+        span = doc[start:end]
+        found_exercises.add(span.text.lower())
+    # Also look for partial matches
+    for token in doc:
+        token_lower = token.text.lower()
+        # Check if it's in our exercise list or its plural form
+        if token_lower in [ex.lower() for ex in exercise_variations]:
+            found_exercises.add(token_lower)
 
-# Print detected exercises (avoid duplicates)
-found_exercises = set()
-for match_id, start, end in exercise_matches:
-    span = doc[start:end]
-    found_exercises.add(span.text.lower())
+    for exercise in found_exercises:
+        exercise_list.append(exercise)
 
-# Also look for partial matches
-for token in doc:
-    token_lower = token.text.lower()
-    # Check if it's in our exercise list or its plural form
-    if token_lower in [ex.lower() for ex in exercise_variations]:
-        found_exercises.add(token_lower)
+    return exercise_list, sets_list, reps_list, weight_list
 
-# Print all found exercises
-for exercise in sorted(found_exercises):
-    print(f"Exercise: {exercise}")
+if __name__ == "__main__":
+    exercise_list, sets_list, reps_list, weight_list = extract_workout_info()
+    print(exercise_list)
+    print(sets_list)
+    print(reps_list)
+    print(weight_list)
