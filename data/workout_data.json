@@ -1,6 +1,15 @@
 [
   {
     "exercise": "bench press",
-    "sets": []
+    "sets": [
+      {
+        "reps": 5,
+        "weight": 100
+      },
+      {
+        "reps": 6,
+        "weight": 300
+      }
+    ]
   }
 ]
