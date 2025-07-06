@@ -1,4 +1,5 @@
 from faster_whisper import WhisperModel
+import os 
 
 def transcribe_audio(audio_file: str = "output.wav") -> None:
     """Transcribe audio file to text and save the result."""
@@ -15,7 +16,10 @@ def transcribe_audio(audio_file: str = "output.wav") -> None:
             full_text += " " + segment.text
         
         # Save transcription to file
-        with open("output.txt", "w") as f:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        text_path = os.path.join(base_dir, '../data/text.txt')
+        
+        with open(text_path, "w") as f:
             f.write(full_text.strip())
         print("\nSaved transcription to output.txt")
         

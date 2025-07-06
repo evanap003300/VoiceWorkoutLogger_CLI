@@ -9,11 +9,14 @@ from exercises.loading_exercises import get_exercises
 # I hit bench press today. Did 3 sets — first one was 135 for 10, then 145 for 8, and finished with 155 for 6.
 # "Deadlift: 225x5, 245x3, 275x1. Then curls 3x12 @ 35s."
 # "Started with squats — 4 sets of 12 at 185. Then overhead press, did two sets of 10 at 95 and one burnout set with just the bar."
+import os
 
 # Load model
 nlp = spacy.load("en_core_web_sm")
 
-with open('../data/text.txt', 'r') as file:
+base_dir = os.path.dirname(os.path.abspath(__file__))
+text_path = os.path.join(base_dir, '../data/text.txt')
+with open(text_path, 'r') as file:
     text = file.read()
 
 doc = nlp(text)

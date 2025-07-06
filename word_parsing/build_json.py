@@ -1,15 +1,12 @@
-from extract_workout_info import extract_workout_info
+from .extract_workout_info import extract_workout_info
 import json
 
 # Output format:
-#  workout_log = [
+# workout_log = [
 #     {
 #         "exercise": "exercise_name",
 #         "sets": [
-#             {
-#                 "reps": 10,
-#                 "weight": 100
-#             },
+#             {"reps": 10, "weight": 100},
 #             ...
 #         ]
 #     },
@@ -21,29 +18,28 @@ def build_json():
     
     workout_log = []
     
-    current_set_idx = 0
-    for exercise in exercise_list:
+    rep_weight_idx = 0  # Index into flat reps/weights list
+
+    for i, exercise in enumerate(exercise_list):
         exercise_data = {
             "exercise": exercise,
             "sets": []
         }
-        
-        # If we have sets info for this exercise
-        if current_set_idx < len(sets_list):
-            num_sets = sets_list[current_set_idx]
-            
-            # Create the sets array
+
+        if i < len(sets_list):
+            num_sets = sets_list[i]
+
             for _ in range(num_sets):
-                if current_set_idx < len(reps_list) and current_set_idx < len(weight_list):
+                if rep_weight_idx < len(reps_list) and rep_weight_idx < len(weight_list):
                     set_data = {
-                        "reps": reps_list[current_set_idx],
-                        "weight": weight_list[current_set_idx]
+                        "reps": reps_list[rep_weight_idx],
+                        "weight": weight_list[rep_weight_idx]
                     }
                     exercise_data["sets"].append(set_data)
-                current_set_idx += 1
-                
+                    rep_weight_idx += 1
+
         workout_log.append(exercise_data)
-    
+
     return workout_log
 
 if __name__ == "__main__":
