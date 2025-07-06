@@ -1,6 +1,6 @@
 from .extract_workout_info import extract_workout_info
 import json
-
+import os 
 # Output format:
 # workout_log = [
 #     {
@@ -40,9 +40,12 @@ def build_json():
 
         workout_log.append(exercise_data)
 
+    # Save the JSON file
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(current_dir)
+    json_path = os.path.join(project_root, 'data', 'workout_data.json')
+    
+    with open(json_path, 'w') as f:
+        json.dump(workout_log, f, indent=2)
+    
     return workout_log
-
-if __name__ == "__main__":
-    json_data = build_json()
-    with open("../data/workout_data.json", "w") as f:
-        json.dump(json_data, f, indent=2)
