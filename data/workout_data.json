@@ -1,14 +1,40 @@
 [
   {
-    "exercise": "bench press",
+    "exercise": "leg extension",
     "sets": [
       {
-        "reps": 5,
-        "weight": 100
+        "reps": 6,
+        "weight": 285
       },
       {
-        "reps": 6,
-        "weight": 300
+        "reps": 5,
+        "weight": 285
+      }
+    ]
+  },
+  {
+    "exercise": "deadlift",
+    "sets": [
+      {
+        "reps": 10,
+        "weight": 225
+      },
+      {
+        "reps": 8,
+        "weight": 225
+      }
+    ]
+  },
+  {
+    "exercise": "squats",
+    "sets": [
+      {
+        "reps": 13,
+        "weight": 260
+      },
+      {
+        "reps": 12,
+        "weight": 260
       }
     ]
   }

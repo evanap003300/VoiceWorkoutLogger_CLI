@@ -14,13 +14,6 @@ import os
 # Load model
 nlp = spacy.load("en_core_web_sm")
 
-base_dir = os.path.dirname(os.path.abspath(__file__))
-text_path = os.path.join(base_dir, '../data/text.txt')
-with open(text_path, 'r') as file:
-    text = file.read()
-
-doc = nlp(text)
-
 # Matcher setup for sets/reps/weight
 matcher = Matcher(nlp.vocab)
 
@@ -58,6 +51,12 @@ weight_list = []
 exercise_list = []
 
 def extract_workout_info():
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    text_path = os.path.join(base_dir, '../data/text.txt')
+    with open(text_path, 'r') as file:
+        text = file.read()
+
+    doc = nlp(text)
     # Run matchers
     matches = matcher(doc)
     exercise_matches = exercise_matcher(doc)
