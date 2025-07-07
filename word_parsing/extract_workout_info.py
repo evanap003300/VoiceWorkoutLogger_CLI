@@ -32,7 +32,7 @@ pattern_sets = [
 
 pattern_weight_reps = [
     [{"LIKE_NUM": True}, {"LOWER": "for"}, {"LIKE_NUM": True}],  # "135 for 6"
-    [{"LIKE_NUM": True}, {"LOWER": {"IN": ["pounds", "lbs"]}}, {"LOWER": "for"}, {"LIKE_NUM": True}]  # "135 pounds for 6"
+    [{"LIKE_NUM": True}, {"LOWER": {"IN": ["pounds", "lbs"]}}, {"LOWER": {"IN": ["for", "or"]}}, {"LIKE_NUM": True}]  # "135 pounds for 6"
 ]
 
 # Add patterns to matcher
