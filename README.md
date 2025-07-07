@@ -1,6 +1,6 @@
-# Voice Transcription and Workout Parser
+# Voice Transcription and Workout Parser (CLI MVP)
 
-A Python tool that combines voice transcription with workout information extraction. Record your workouts by speaking naturally, and the system will automatically transcribe your voice, extract workout information, and generate both JSON and Excel reports.
+A Python-based CLI tool that combines voice transcription with workout information extraction. This MVP (Minimum Viable Product) allows you to record your workouts by speaking naturally, and the system will automatically transcribe your voice, extract workout information, and generate both JSON and Excel reports. This is the first phase of a larger full-stack project.
 
 ## Features
 
@@ -18,10 +18,11 @@ A Python tool that combines voice transcription with workout information extract
   - Sets, reps, and weight tracking
   - Support for various weight units (lbs, kg, etc.)
   - Handles both numeric and word-form numbers
+  - Natural language processing to understand workout descriptions
 
 - **Data Export**:
-  - Structured JSON output
-  - Excel spreadsheet generation with:
+  - Structured JSON output with proper exercise-to-set mapping
+  - Chronologically ordered Excel spreadsheet generation with:
     - Exercise name
     - Set numbers
     - Reps per set
@@ -32,23 +33,29 @@ A Python tool that combines voice transcription with workout information extract
 
 - Python 3.7 or higher
 - Required Python packages (install via `pip install -r requirements.txt`):
-  - numpy
-  - sounddevice
-  - scipy
-  - faster-whisper
-  - spacy
-  - word2number
-  - pandas
-  - openpyxl
+  - numpy (≥1.20.0)
+  - sounddevice (≥0.4.5)
+  - scipy (≥1.7.0)
+  - faster-whisper (≥0.9.0)
+  - spacy (≥3.7.2)
+  - word2number (≥1.1)
+  - pandas (≥2.0.0)
+  - openpyxl (≥3.1.0)
 
 ## Installation
 
-1. Install the required dependencies:
+1. Clone the repository:
+   ```bash
+   git clone [repository-url]
+   cd voice-transcription-project
+   ```
+
+2. Install the required dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-2. Install spaCy's English language model:
+3. Install spaCy's English language model:
    ```bash
    python -m spacy download en_core_web_sm
    ```
@@ -70,7 +77,7 @@ A Python tool that combines voice transcription with workout information extract
    - Save the audio as `output.wav`
    - Transcribe to text in `data/text.txt`
    - Extract workout data to `data/workout_data.json`
-   - Generate an Excel report in the `output` directory
+   - Generate an Excel report in the `output` directory with chronologically ordered exercises and sets
 
 ### Example Voice Input
 
@@ -98,33 +105,38 @@ voice-transcription-project/
 │   ├── speech_to_text.py
 │   └── voice_to_wav.py
 ├── word_parsing/
-│   ├── build_json.py
-│   └── extract_workout_info.py
+│   ├── build_json.py     # Processes and structures workout data
+│   └── extract_workout_info.py # Extracts workout details using NLP
 └── main.py               # Main program entry point
 ```
 
-## Future Plans
+## Future Development Plans
 
-### 1. Frontend Development
-- Create a React-based web interface
-- Features planned:
-  - Real-time recording status
+This CLI version serves as an MVP for a larger full-stack application. Future development will focus on:
+
+### 1. Web Application Development
+- **Frontend (React)**:
+  - Real-time recording interface
   - Workout history visualization
   - Exercise progress tracking
   - User authentication
   - Mobile-responsive design
 
-### 2. Backend Enhancement
-- Convert to FastAPI backend
-- Features planned:
+- **Backend (FastAPI)**:
   - RESTful API endpoints
   - WebSocket support for real-time updates
   - User management
   - Workout data persistence
   - Exercise database management
 
-### 3. Natural Language Processing Improvements
-- Enhanced parser capabilities:
+### 2. Enhanced Features
+- **Data Analysis**:
+  - Progress tracking over time
+  - Performance analytics
+  - Workout recommendations
+  - Goal setting and tracking
+
+- **Natural Language Processing Improvements**:
   - Handle more casual speech patterns
   - Better context understanding
   - Support for:
@@ -132,11 +144,12 @@ voice-transcription-project/
     - Corrections mid-speech
     - Multiple exercises in one sentence
     - Implicit exercise references
-  - Improved error handling for:
-    - Ambiguous statements
-    - Missing information
-    - Unit conversions
-    - Exercise variations
+
+### 3. Mobile Application
+- Native mobile apps for iOS and Android
+- Offline support
+- Push notifications
+- Integration with health platforms
 
 ## Note
 
