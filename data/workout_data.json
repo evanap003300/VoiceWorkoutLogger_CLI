@@ -1,41 +1,41 @@
 [
   {
-    "exercise": "leg extension",
+    "exercise": "bench press",
     "sets": [
-      {
-        "reps": 6,
-        "weight": 285
-      },
       {
         "reps": 5,
-        "weight": 285
+        "weight": 220
+      },
+      {
+        "reps": 7,
+        "weight": 205
       }
     ]
   },
   {
-    "exercise": "deadlift",
+    "exercise": "incline dumbbell press",
     "sets": [
       {
-        "reps": 10,
-        "weight": 225
+        "reps": 7,
+        "weight": 85
       },
       {
-        "reps": 8,
-        "weight": 225
+        "reps": 6,
+        "weight": 85
       }
     ]
   },
   {
-    "exercise": "squats",
+    "exercise": "dumbbell press",
     "sets": [
       {
-        "reps": 13,
-        "weight": 260
-      },
-      {
-        "reps": 12,
-        "weight": 260
+        "reps": 22,
+        "weight": 0
       }
     ]
+  },
+  {
+    "exercise": "dips",
+    "sets": []
   }
 ]

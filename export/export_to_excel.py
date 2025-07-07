@@ -14,8 +14,7 @@ def export_workout_to_excel():
     # Create lists to store flattened data
     rows = []
     
-    # Process each exercise
-    for exercise_entry in workout_data:
+    for exercise_entry in (workout_data):
         exercise_name = exercise_entry['exercise']
         
         # If no sets, add a single row with just the exercise name
