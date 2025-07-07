@@ -3,39 +3,22 @@
     "exercise": "bench press",
     "sets": [
       {
-        "reps": 5,
-        "weight": 220
-      },
-      {
-        "reps": 7,
-        "weight": 205
-      }
-    ]
-  },
-  {
-    "exercise": "incline dumbbell press",
-    "sets": [
-      {
-        "reps": 7,
-        "weight": 85
-      },
-      {
         "reps": 6,
-        "weight": 85
+        "weight": 225
       }
     ]
   },
   {
-    "exercise": "dumbbell press",
+    "exercise": "squats",
     "sets": [
       {
-        "reps": 22,
-        "weight": 0
+        "reps": 8,
+        "weight": 275
+      },
+      {
+        "reps": 7,
+        "weight": 265
       }
     ]
-  },
-  {
-    "exercise": "dips",
-    "sets": []
   }
 ]

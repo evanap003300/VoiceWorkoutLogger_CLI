@@ -41,6 +41,10 @@ def extract_workout_info():
     with open(text_path, 'r') as file:
         text = file.read()
 
+    for ord_word in ["first", "second", "third", "fourth", "fifth",
+                 "sixth", "seventh", "eighth", "ninth", "tenth"]:
+        text = text.replace(ord_word, "")
+
     doc = nlp(text)
 
     timeline = []
